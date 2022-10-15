@@ -1,15 +1,15 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-console.log(ctx);
 
-const player = new Player(ctx)  
-const platform = new Platform(ctx)
+
+const player = new Player()
+const platforms = [new Platform(300, 330), new Platform(600, 560)]
 
 const keys = {
-    right:{
+    right: {
         pressed: false
     },
-    left:{
+    left: {
         pressed: false
     }
 }
@@ -19,28 +19,57 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     player.update()
-    platform.draw()
+    platforms.forEach(platform => {
+        platform.draw()
+    })
 
-    if(keys.right.pressed){
-        player.velocity.x = 2;
-    }else if(keys.left.pressed){
-        player.velocity.x = -2;
-    }else{
+
+    if (keys.right.pressed && player.x < 400) {
+        player.velocity.x = 5;
+    } else if (keys.left.pressed && player.x > 100) {
+        player.velocity.x = -5;
+    } else {
         player.velocity.x = 0;
+
+        if (keys.right.pressed) {
+            platforms.forEach((platform) => {
+                platform.x -= 5
+            })
+
+        } else if (keys.left.pressed) {
+            platforms.forEach((platform) => {
+                platform.x += 5
+            })
+
+        }
     }
+
+    //plataform collision detection
+    platforms.forEach((platform) => {
+        if (
+            player.y + player.height <= platform.y &&
+            player.y + player.height + player.velocity.y >= platform.y &&
+            player.x + player.width >= platform.x &&
+            player.x <= platform.x + platform.width
+        ) {
+            player.velocity.y = 0
+        }
+    })
 }
+
+
 
 animate()
 
 addEventListener('keydown', (e) => {
     switch (e.code) {
-        case 'ArrowRight': 
-        keys.right.pressed = true;
+        case 'ArrowRight':
+            keys.right.pressed = true;
             break;
-        case 'ArrowLeft': 
-        keys.left.pressed = true;
+        case 'ArrowLeft':
+            keys.left.pressed = true;
             break;
-        case 'ArrowUp': player.velocity.y -=1
+        case 'ArrowUp': player.velocity.y -= 1
             break;
         case 'ArrowDawn':
             break;
@@ -51,13 +80,13 @@ addEventListener('keydown', (e) => {
 
 document.addEventListener('keyup', (e) => {
     switch (e.code) {
-        case 'ArrowRight': 
+        case 'ArrowRight':
             keys.right.pressed = false;
             break;
-        case 'ArrowLeft': 
+        case 'ArrowLeft':
             keys.left.pressed = false;
             break;
-        case 'ArrowUp': player.velocity.y -=20 
+        case 'ArrowUp': player.velocity.y -= 20
 
 
             break;

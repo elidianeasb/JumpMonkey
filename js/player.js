@@ -1,6 +1,6 @@
 const gravity = 0.5
 class Player {
-    constructor(ctx) {
+    constructor() {
         this.x = 100;
         this.y = canvas.height - 30;
         this.width = 30;
@@ -15,8 +15,8 @@ class Player {
     }
 
     draw() {
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
     update() {
