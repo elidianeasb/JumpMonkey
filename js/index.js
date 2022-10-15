@@ -2,8 +2,8 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 
-const player = new Player()
-const platforms = [new Platform(300, 330), new Platform(600, 560)]
+const player = new Player();
+const platforms = [new Platform(300, 330), new Platform(500, 460)];
 
 const keys = {
     right: {
