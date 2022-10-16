@@ -9,10 +9,10 @@ const keys = {
     left: {
         pressed: false
     }
-}
+} 
 
 function startGame() {
-    const game = new Game(ctx, canvas, keys);
+    const game = new Game();
     game.start()
 
     addEventListener('keydown', (e) => {

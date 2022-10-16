@@ -1,32 +1,36 @@
 class Game {
-    constructor(ctx, canvas, keys) {
-        this.scrollOffset = 0;
+    constructor() {
         this.ctx = ctx;
+        //this.player = player;
         this.canvas = canvas;
         this.keys = keys;
-
-        this.animate;
-
+        //this.animate;
         this.init()
+        this.scrollOffset = 0;
+        this.controls = null;
     }
 
-    start(){
+    start() {
         this.animate()
+        /* this.controls = new Controls(this.character);
+        this.controls.keyboardEvents(); */
     }
 
-    decreaseVelocity(velocity){
+    decreaseVelocity(velocity) {
         this.player.velocity.y -= velocity;
     }
 
     init = () => {
-        this.player = new Player();
+        this.player = new Player(100, 100, '../images/spriteStandRight.png');
+        const gap = 200;
+        const width = 550;
         this.platforms = [
-            new Platform(-1, 460),
-            new Platform(500, 460),
-            new Platform(1500, 460),
-            new Platform(900, 260),
+            new Platform(0, 460, width),
+            new Platform(750, 460, width),
+            new Platform(1000, 460, width),
+            new Platform(1500, 460, width),
         ];
-        ;
+
         this.genericObjects = [
             new GenericObject(0, 0, '../images/background.png'),
             new GenericObject(0, 100, '../images/hills.png')
@@ -49,12 +53,13 @@ class Game {
             platform.draw()
         });
 
-        this.player.update();
+        this.player.newPosition();
 
-
+        //Scroll the background scenario
         if (this.keys.right.pressed && this.player.x < 400) {
             this.player.velocity.x = this.player.speed;
-        } else if (this.keys.left.pressed && this.player.x > 100) {
+        } else if (this.keys.left.pressed && this.player.x > 100 || this.keys.left.pressed && this.scrollOffset === 0 && 
+            this.player.x > 0){
             this.player.velocity.x = -this.player.speed;
         } else {
             this.player.velocity.x = 0;
@@ -69,7 +74,7 @@ class Game {
                     objects.x -= this.player.speed * 0.66
                 })
 
-            } else if (this.keys.left.pressed) {
+            } else if (this.keys.left.pressed && this.scrollOffset > 0) {
                 this.scrollOffset -= this.player.speed
                 this.platforms.forEach((platform) => {
                     platform.x += this.player.speed
@@ -77,8 +82,6 @@ class Game {
                 this.genericObjects.forEach((objects) => {
                     objects.x += this.player.speed * 0.66
                 })
-
-
             }
         }
 
@@ -96,12 +99,12 @@ class Game {
 
         //win condition
         if (this.scrollOffset > 2000) {
-            //console.log('you win')
+            console.log('you win')
         }
 
         //lose condition
         if (this.player.y > this.canvas.height) {
-            //console.log('you lose')
+            console.log('you lose')
             this.init()
         }
     }

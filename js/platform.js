@@ -1,8 +1,8 @@
 class Platform {
-    constructor(x, y) {
+    constructor(x, y, width) {
         this.x = x;
         this.y = y;
-        this.width = 550;
+        this.width = width;
         this.height = 20;      
     }
 
