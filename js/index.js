@@ -1,10 +1,8 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
-
-
-const player = new Player();
-const platforms = [
+let player = new Player();
+let platforms = [
     new Platform(-1, 460), 
     new Platform(500, 460),
     new Platform(1500, 460),
@@ -12,7 +10,7 @@ const platforms = [
 ];
 
 
-const genericObjects = [
+let genericObjects = [
     new GenericObject(0, 0, '../images/background.png'),
     new GenericObject(0, 100, '../images/hills.png')
 ];
@@ -27,7 +25,37 @@ const keys = {
     }
 }
 
-let scrollOffset = 0;
+let scrollOffset = 0; 
+
+
+function init (){
+    player = new Player();
+    platforms = [
+    new Platform(-1, 460), 
+    new Platform(500, 460),
+    new Platform(1500, 460),
+    new Platform(900, 260),
+];
+
+
+const genericObjects = [
+    new GenericObject(0, 0, '../images/background.png'),
+    new GenericObject(0, 100, '../images/hills.png')
+];
+
+
+keys = {
+    right: {
+        pressed: false
+    },
+    left: {
+        pressed: false
+    }
+}
+
+scrollOffset = 0;    
+}
+
 
 
 function animate() {
@@ -95,7 +123,7 @@ function animate() {
         //console.log('you win')
     }
 
-    //lose condicion
+    //lose condition
     if (player.y > canvas.height){
         //console.log('you lose')
         init()
