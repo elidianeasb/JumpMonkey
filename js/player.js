@@ -1,15 +1,16 @@
-const gravity = 1
+const gravity = 1.0
 class Player {
     constructor() {
+        this.speed = 10;
         this.x = 100;
-        this.y = canvas.height - 150;
-        this.width = 30;
-        this.height = 30;
+        this.y = 100;
         this.velocity = {
             x: 0,
             y: 0
         }
         this.ctx = ctx
+        this.width = 30;
+        this.height = 30;
 
 
     }

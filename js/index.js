@@ -1,59 +1,36 @@
+/** @type {HTMLCanvasElement} */
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
-let player = new Player();
-let platforms = [
-    new Platform(-1, 460), 
-    new Platform(500, 460),
-    new Platform(1500, 460),
-    new Platform(900, 260),
-];
+let player, platforms, genericObjects, keys, scrollOffset;
 
 
-let genericObjects = [
-    new GenericObject(0, 0, '../images/background.png'),
-    new GenericObject(0, 100, '../images/hills.png')
-];
-
-
-const keys = {
-    right: {
-        pressed: false
-    },
-    left: {
-        pressed: false
-    }
-}
-
-let scrollOffset = 0; 
-
-
-function init (){
+function init() {
     player = new Player();
     platforms = [
-    new Platform(-1, 460), 
-    new Platform(500, 460),
-    new Platform(1500, 460),
-    new Platform(900, 260),
-];
+        new Platform(-1, 460),
+        new Platform(500, 460),
+        new Platform(1500, 460),
+        new Platform(900, 260),
+    ];
 
 
-const genericObjects = [
-    new GenericObject(0, 0, '../images/background.png'),
-    new GenericObject(0, 100, '../images/hills.png')
-];
+    genericObjects = [
+        new GenericObject(0, 0, '../images/background.png'),
+        new GenericObject(0, 100, '../images/hills.png')
+    ];
 
 
-keys = {
-    right: {
-        pressed: false
-    },
-    left: {
-        pressed: false
+    keys = {
+        right: {
+            pressed: false
+        },
+        left: {
+            pressed: false
+        }
     }
-}
 
-scrollOffset = 0;    
+    scrollOffset = 0;
 }
 
 
@@ -62,7 +39,7 @@ function animate() {
     requestAnimationFrame(animate)
     ctx.fillStyle = 'white'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
-    
+
     //Adds new objects to the game scenario
     genericObjects.forEach((genericObjects) => {
         genericObjects.draw()
@@ -74,32 +51,32 @@ function animate() {
     });
 
     player.update();
-    
-    
+
+
     if (keys.right.pressed && player.x < 400) {
-        player.velocity.x = 5;
+        player.velocity.x = player.speed;
     } else if (keys.left.pressed && player.x > 100) {
-        player.velocity.x = -5;
+        player.velocity.x = -player.speed;
     } else {
         player.velocity.x = 0;
 
         if (keys.right.pressed) {
-            scrollOffset +=5
+            scrollOffset += player.speed
             platforms.forEach((platform) => {
-                platform.x -= 5
+                platform.x -= player.speed
             })
 
             genericObjects.forEach((objects) => {
-                objects.x -=3
+                objects.x -= player.speed * 0.66
             })
 
         } else if (keys.left.pressed) {
-            scrollOffset -=5
+            scrollOffset -= player.speed
             platforms.forEach((platform) => {
-                platform.x += 5
+                platform.x += player.speed
             })
             genericObjects.forEach((objects) => {
-                objects.x +=3
+                objects.x += player.speed * 0.66
             })
 
 
@@ -119,52 +96,51 @@ function animate() {
     })
 
     //win condition
-    if (scrollOffset > 2000){
+    if (scrollOffset > 2000) {
         //console.log('you win')
     }
 
     //lose condition
-    if (player.y > canvas.height){
+    if (player.y > canvas.height) {
         //console.log('you lose')
-        init()
-
-
+        //init();
     }
 }
 
 
 
-animate()
 
 addEventListener('keydown', (e) => {
     switch (e.code) {
-        case 'ArrowRight':
-            keys.right.pressed = true;
-            break;
         case 'ArrowLeft':
             keys.left.pressed = true;
             break;
-        case 'ArrowUp': player.velocity.y -= 1
-            break;
-        case 'ArrowDawn':
+
+        case 'ArrowRight':
+            keys.right.pressed = true;
             break;
 
+        case 'ArrowUp': 
+        player.velocity.y -= 20
+            break;
     }
-    console.log(keys.right.pressed)
 })
 
 document.addEventListener('keyup', (e) => {
     switch (e.code) {
-        case 'ArrowRight':
-            keys.right.pressed = false;
-            break;
         case 'ArrowLeft':
             keys.left.pressed = false;
             break;
-        case 'ArrowUp': player.velocity.y -= 20
-            break;
- 
 
+        case 'ArrowRight':
+            keys.right.pressed = false;
+            break;
+
+        case 'ArrowUp': 
+            //player.velocity.y -= 50
+            break;
     }
-    console.log(keys.right.pressed)
 })
+
+init()
+animate()
