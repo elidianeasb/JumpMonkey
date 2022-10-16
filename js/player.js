@@ -1,8 +1,8 @@
-const gravity = 0.5
+const gravity = 1
 class Player {
     constructor() {
         this.x = 100;
-        this.y = canvas.height - 30;
+        this.y = canvas.height - 150;
         this.width = 30;
         this.height = 30;
         this.velocity = {
@@ -25,8 +25,6 @@ class Player {
         this.y += this.velocity.y
         if (this.y + this.height + this.velocity.y <= canvas.height) {
             this.velocity.y += gravity
-        } else {
-            this.velocity.y = 0;
-        }
+        } 
     };
 }

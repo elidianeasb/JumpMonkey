@@ -2,8 +2,21 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 
+
 const player = new Player();
-const platforms = [new Platform(300, 330), new Platform(500, 460)];
+const platforms = [
+    new Platform(-1, 460), 
+    new Platform(500, 460),
+    new Platform(1500, 460),
+    new Platform(900, 260),
+];
+
+
+const genericObjects = [
+    new GenericObject(0, 0, '../images/background.png'),
+    new GenericObject(0, 100, '../images/hills.png')
+];
+
 
 const keys = {
     right: {
@@ -14,16 +27,27 @@ const keys = {
     }
 }
 
+let scrollOffset = 0;
+
+
 function animate() {
     requestAnimationFrame(animate)
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = 'white'
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    
+    //Adds new objects to the game scenario
+    genericObjects.forEach((genericObjects) => {
+        genericObjects.draw()
+    });
 
-    player.update()
-    platforms.forEach(platform => {
+    //Adds ground 
+    platforms.forEach((platform) => {
         platform.draw()
-    })
+    });
 
-
+    player.update();
+    
+    
     if (keys.right.pressed && player.x < 400) {
         player.velocity.x = 5;
     } else if (keys.left.pressed && player.x > 100) {
@@ -32,14 +56,24 @@ function animate() {
         player.velocity.x = 0;
 
         if (keys.right.pressed) {
+            scrollOffset +=5
             platforms.forEach((platform) => {
                 platform.x -= 5
             })
 
+            genericObjects.forEach((objects) => {
+                objects.x -=3
+            })
+
         } else if (keys.left.pressed) {
+            scrollOffset -=5
             platforms.forEach((platform) => {
                 platform.x += 5
             })
+            genericObjects.forEach((objects) => {
+                objects.x +=3
+            })
+
 
         }
     }
@@ -55,6 +89,19 @@ function animate() {
             player.velocity.y = 0
         }
     })
+
+    //win condition
+    if (scrollOffset > 2000){
+        //console.log('you win')
+    }
+
+    //lose condicion
+    if (player.y > canvas.height){
+        //console.log('you lose')
+        init()
+
+
+    }
 }
 
 
@@ -87,11 +134,8 @@ document.addEventListener('keyup', (e) => {
             keys.left.pressed = false;
             break;
         case 'ArrowUp': player.velocity.y -= 20
-
-
             break;
-        case 'ArrowUp':
-            break;
+ 
 
     }
     console.log(keys.right.pressed)

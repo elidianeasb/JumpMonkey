@@ -12,3 +12,4 @@ class Platform {
         ctx.drawImage(this.image, this.x, this.y)
     }    
 }
+
