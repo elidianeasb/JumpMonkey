@@ -6,8 +6,6 @@ class Game {
         this.init()
         this.scrollOffset = 0;
         this.controls = null;
-        this.obstacles = [];
-        
     }
 
     start() {
@@ -15,10 +13,9 @@ class Game {
     }
 
     score() {
-        const points = 0;
         this.ctx.font = '22px monospace';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Score: ${points}`, 100, 50);
+        this.ctx.fillText(`Score: ${this.points}`, 100, 50);
     }
     
 
@@ -31,6 +28,8 @@ class Game {
         const gap = 200;
         const width = 1024;
 
+        this.points = 0;
+
         this.platforms = []
         for (let i = 0; i < 27; i++){
             this.platforms.push(new Platform((width+gap)*i, 460, width))
@@ -42,7 +41,11 @@ class Game {
         ];
         
         //Adds Rewards
-        this.rewards = new Rewards(350, 150);
+        this.rewards = []
+        for (let i = 1; i < 100; i++) {
+            const element = i[i];
+            this.rewards.push(new Reward((350 + i)*i+2, 150));
+        }
     }
 
 
@@ -66,7 +69,9 @@ class Game {
         this.player.newPosition();
 
         //Add rewards        
-        this.rewards.draw();  
+        this.rewards.forEach((reward) => {
+            reward.draw()
+        })
         
         //Add score
         this.score();
@@ -96,19 +101,12 @@ class Game {
                     objects.x -= this.player.speed * 0.66
                 })
 
-                this.rewards.x -= this.player.speed            
+                this.rewards.forEach((reward) => {
+                    reward.x -= this.player.speed     
+                })       
 
             
 
-            } else if (this.keys.left.pressed && this.scrollOffset > 0) {
-                this.scrollOffset -= this.player.speed
-                this.platforms.forEach((platform) => {
-                    platform.x += this.player.speed
-                })
-                this.background.forEach((objects) => {
-                    objects.x += this.player.speed * 0.66
-                })
-                //this.reward.x += this.player.speed
             }
         }
 
@@ -135,16 +133,22 @@ class Game {
             console.log('you lose')
             this.init()
         }
+
+        this.checkColision();
     }
 
-    checkRewards() {
-        const crashed = this.coin.some((coin) => {  //some methods 
-            return this.player.crashWith(coin);           
-            
+    checkColision = () => {
+        let rewardColided;
+        const crashed = this.rewards.some((reward) => {  //some methods 
+            rewardColided = reward;
+            return this.player.crashWith(reward);
         })
 
         if (crashed) {
-            this.score();            
-        }
+            this.rewards = this.rewards.filter((reward) => {
+                return reward.x !== rewardColided.x
+            })
+            this.points++;            
+        } 
     }
 }

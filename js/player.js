@@ -2,7 +2,7 @@ const gravity = 0.5
 class Player {
     constructor() {
         this.x = 100;
-        this.y = 250;
+        this.y = 0;
         this.velocity = {
             x: 0,
             y: 0
@@ -24,7 +24,7 @@ class Player {
         this.draw()
         this.x += this.velocity.x
         this.y += this.velocity.y
-        if (this.y + this.height + this.velocity.y <= canvas.height) {
+        if (this.velocity.y <= canvas.height) {
             this.velocity.y += gravity
         } 
     }  
@@ -33,22 +33,22 @@ class Player {
         return this.x;
     }
     right(){
-        return this.x + this.w
+        return this.x + this.width
     }
     top(){
         return this.y
     }
 
     bottom(){
-        return this.y + this.h
+        return this.y + this.height
     }
 
-    crashWith(coin) {
+    crashWith(object) {
         return !(
-            this.bottom() < coin.top() ||
-            this.top() > coin.bottom() ||
-            this.right() < coin.left() ||
-            this.left() > coin.right()
+            this.bottom() < object.top() ||
+            this.top() > object.bottom() ||
+            this.right() < object.left() ||
+            this.left() > object.right()
         );
     }
 }

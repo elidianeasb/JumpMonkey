@@ -1,4 +1,4 @@
-class Rewards {
+class Reward {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -16,22 +16,22 @@ class Rewards {
         return this.x;
     }
     right(){
-        return this.x + this.w
+        return this.x + this.width
     }
     top(){
         return this.y
     }
 
     bottom(){
-        return this.y + this.h
+        return this.y + this.height
     }
 
-    crashWith(coin) {
+    crashWith(object) {
         return !(
-            this.bottom() < coin.top() ||
-            this.top() > coin.bottom() ||
-            this.right() < coin.left() ||
-            this.left() > coin.right()
+            this.bottom() < object.top() ||
+            this.top() > object.bottom() ||
+            this.right() < object.left() ||
+            this.left() > object.right()
         );
     }
 
