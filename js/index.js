@@ -13,7 +13,9 @@ const keys = {
 
 function startGame() {
     const game = new Game();
-    game.start()
+    game.start();
+
+    const player = new Player()
 
     addEventListener('keydown', (e) => {
         switch (e.code) {

@@ -1,27 +1,33 @@
 class Game {
     constructor() {
         this.ctx = ctx;
-        //this.player = player;
         this.canvas = canvas;
         this.keys = keys;
-        //this.animate;
         this.init()
         this.scrollOffset = 0;
         this.controls = null;
+        this.obstacles = [];
+        
     }
 
     start() {
         this.animate()
-        /* this.controls = new Controls(this.character);
-        this.controls.keyboardEvents(); */
     }
+
+    score() {
+        const points = 0;
+        this.ctx.font = '22px monospace';
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillText(`Score: ${points}`, 100, 50);
+    }
+    
 
     decreaseVelocity(velocity) {
         this.player.velocity.y -= velocity;
     }
 
     init = () => {
-        this.player = new Player(200, 150, '../images/spriteStandRight.png');
+        this.player = new Player();
         const gap = 200;
         const width = 1024;
 
@@ -30,11 +36,13 @@ class Game {
             this.platforms.push(new Platform((width+gap)*i, 460, width))
         }
 
-
-        this.genericObjects = [
-            //new GenericObject(0, 0, '../images/background.png'),
+        this.background = [
+            new Background(0, 0, '../images/background.png'),
             //new GenericObject(0, 20, '../images/hills.png')
         ];
+        
+        //Adds Rewards
+        this.rewards = new Rewards(350, 150);
     }
 
 
@@ -44,44 +52,63 @@ class Game {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
 
         //Adds new objects to the game scenario
-        this.genericObjects.forEach((genericObjects) => {
-            genericObjects.draw()
+        this.background.forEach((background) => {
+            background.draw()
         });
+        
 
         //Adds ground 
         this.platforms.forEach((platform) => {
             platform.draw()
-        });
+        }); 
 
+        //Add player
         this.player.newPosition();
 
+        //Add rewards        
+        this.rewards.draw();  
+        
+        //Add score
+        this.score();
+       
         //Scroll the background scenario
         if (this.keys.right.pressed && this.player.x < 400) {
             this.player.velocity.x = this.player.speed;
+
         } else if (this.keys.left.pressed && this.player.x > 100 || this.keys.left.pressed && this.scrollOffset === 0 && 
             this.player.x > 0){
+
             this.player.velocity.x = -this.player.speed;
+            
         } else {
             this.player.velocity.x = 0;
 
             if (this.keys.right.pressed) {
+
                 this.scrollOffset += this.player.speed
+                
                 this.platforms.forEach((platform) => {
                     platform.x -= this.player.speed
+                  
                 })
 
-                this.genericObjects.forEach((objects) => {
+                this.background.forEach((objects) => {
                     objects.x -= this.player.speed * 0.66
                 })
+
+                this.rewards.x -= this.player.speed            
+
+            
 
             } else if (this.keys.left.pressed && this.scrollOffset > 0) {
                 this.scrollOffset -= this.player.speed
                 this.platforms.forEach((platform) => {
                     platform.x += this.player.speed
                 })
-                this.genericObjects.forEach((objects) => {
+                this.background.forEach((objects) => {
                     objects.x += this.player.speed * 0.66
                 })
+                //this.reward.x += this.player.speed
             }
         }
 
@@ -96,6 +123,7 @@ class Game {
                 this.player.velocity.y = 0
             }
         })
+        
 
         //win condition
         if (this.scrollOffset > 2000) {
@@ -106,6 +134,17 @@ class Game {
         if (this.player.y > this.canvas.height) {
             console.log('you lose')
             this.init()
+        }
+    }
+
+    checkRewards() {
+        const crashed = this.coin.some((coin) => {  //some methods 
+            return this.player.crashWith(coin);           
+            
+        })
+
+        if (crashed) {
+            this.score();            
         }
     }
 }
