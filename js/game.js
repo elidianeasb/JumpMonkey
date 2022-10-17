@@ -21,19 +21,19 @@ class Game {
     }
 
     init = () => {
-        this.player = new Player(100, 100, '../images/spriteStandRight.png');
+        this.player = new Player(200, 150, '../images/spriteStandRight.png');
         const gap = 200;
-        const width = 550;
-        this.platforms = [
-            new Platform(0, 460, width),
-            new Platform(750, 460, width),
-            new Platform(1000, 460, width),
-            new Platform(1500, 460, width),
-        ];
+        const width = 1024;
+
+        this.platforms = []
+        for (let i = 0; i < 27; i++){
+            this.platforms.push(new Platform((width+gap)*i, 460, width))
+        }
+
 
         this.genericObjects = [
-            new GenericObject(0, 0, '../images/background.png'),
-            new GenericObject(0, 100, '../images/hills.png')
+            //new GenericObject(0, 0, '../images/background.png'),
+            //new GenericObject(0, 20, '../images/hills.png')
         ];
     }
 

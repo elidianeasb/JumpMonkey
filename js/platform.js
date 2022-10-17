@@ -3,12 +3,12 @@ class Platform {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height = 20;      
+        this.height = 10;      
     }
 
     draw(){
         this.image = new Image();
-        this.image.src ='../images/platform.png';
+        this.image.src ='../images/floor.png';
         ctx.drawImage(this.image, this.x, this.y)
     }    
 }

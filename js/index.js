@@ -18,15 +18,15 @@ function startGame() {
     addEventListener('keydown', (e) => {
         switch (e.code) {
             case 'ArrowLeft':
-                keys.left.pressed = true;
+                keys.left.pressed +=0.5;
                 break;
 
             case 'ArrowRight':
-                keys.right.pressed = true;
+                keys.right.pressed +=0.5;
                 break;
 
             case 'ArrowUp':
-                game.decreaseVelocity(20)
+                game.decreaseVelocity(15)
                 break;
         }
     })
