@@ -19,12 +19,9 @@ class Game {
         this.button.src = '../images/button.png'
         this.ctx.drawImage(this.button, 40, 25, 200, 60)
 
-        /* this.image = new Reward(65, 38);
-        this.image.src ='../images/platform.png'; */
-
-        this.ctx.font = '22px monospace';
+        this.ctx.font = '28px monospace'; 
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Store: ${this.points}`, 80, 60);
+        this.ctx.fillText(`Store: ${this.points}`, 70, 65);
     }
 
 
@@ -34,21 +31,26 @@ class Game {
 
     init = () => {
         this.player = new Player();
-        const gap = 200;
-        const width = 1024;
+        const gap = 1000;
 
         this.points = 0;
 
+
+        //biggest platforms
         this.platforms = []
         for (let i = 0; i < 27; i++) {
-            this.platforms.push(new Platform((width + gap) * i, 450, width))
+            this.platforms.push(new Platform((1024 + gap) * i, 450, 1024, '../images/platform01.png'))
         }
 
+        //smallest platforms
+        this.smallPlatforms = [new Platform(500, 350, 512, '../images/platform02.png')]
+                  
 
 
+        //bachgraoung image
         this.background = []
         for (let i = 0; i < 27; i++) {
-                this.background.push(new Background((width-30) * i, 0, '../images/BG.png'))
+                this.background.push(new Background((994) * i, 0, '../images/BG.png'))
             }
             /* new Background(0, 0, '../images/BG.png'),
             //new GenericObject(0, 20, '../images/hills.png') */
@@ -56,7 +58,7 @@ class Game {
 
         //Adds Rewards
         this.rewards = []
-        for (let i = 1; i < 100; i++) {
+        for (let i = 1; i < 20; i++) {
             const element = i[i];
             this.rewards.push(new Reward((600 + i) * i + 3, 100));
         }
@@ -71,11 +73,18 @@ class Game {
             background.draw()
         });
 
+        //draw small platforms 
+        this.smallPlatforms.forEach((platform) => {
+            platform.draw()
+        });
 
-        //Adds ground 
+
+        //draw big platforms 
         this.platforms.forEach((platform) => {
             platform.draw()
         });
+
+        
 
 
         //Add player
@@ -106,6 +115,11 @@ class Game {
                     platform.x -= this.player.speed
                 })
 
+                this.smallPlatforms.forEach((platform) => {
+                    platform.x -= this.player.speed
+                })
+                
+
                 this.background.forEach((objects) => {
                     objects.x -= this.player.speed * 0.66
                 })
@@ -122,6 +136,17 @@ class Game {
             if (
                 this.player.y + this.player.height <= platform.y + platformPadding &&
                 this.player.y + this.player.height + this.player.velocity.y >= platform.y + platformPadding &&
+                this.player.x + this.player.width >= platform.x &&
+                this.player.x <= platform.x + platform.width
+            ) {
+                this.player.velocity.y = 0
+            }
+        })
+
+        this.smallPlatforms.forEach((platform) => {
+            if (
+                this.player.y + this.player.height <= platform.y &&
+                this.player.y + this.player.height + this.player.velocity.y >= platform.y &&
                 this.player.x + this.player.width >= platform.x &&
                 this.player.x <= platform.x + platform.width
             ) {
@@ -151,6 +176,8 @@ class Game {
         this.ctx.fillText(`Game Over`, 380, 250);
 
         this.ctx.fillRect(380, 300, 100, 50);
+
+        //TELA DE END GAME
         document.getElementById("canvas-screen").style.display = "none";
         document.getElementById("end-screen").style.display = "block";
     }

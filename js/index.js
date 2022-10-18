@@ -58,4 +58,4 @@ function startGame() {
     })
 }
 
-//startGame();
+startGame();
