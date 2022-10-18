@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +12,7 @@ body {
     position: absolute;
     width: 1024px;
     height: 576px;
-}
+} 
 
 #intro-screen,
 #end-screen {
@@ -25,6 +25,7 @@ body {
 
 #intro-screen p,
 #end-screen p {
+    font-size: 30px;
     color: white;
 }
 
@@ -40,7 +41,12 @@ body {
 
 #intro-screen button,
 #end-screen button{
-    background-color: rgb(155, 30, 30);
+    background-color: rgb(4, 84, 75);
     color: white;
-    padding: 20px;
+    border: none;
+    padding: 20px 60px;
+}
+
+#start-button{
+    font-size: 30px;
 }

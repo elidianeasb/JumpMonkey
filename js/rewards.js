@@ -26,7 +26,7 @@ class Reward {
     }
     
     update(){
-        this.frames ++
+        this.frames++
         if (this.frames > 5){
             this.frames = 0;
         }

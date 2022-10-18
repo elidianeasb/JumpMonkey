@@ -15,9 +15,16 @@ class Game {
     }
 
     score() {
+        this.button = new Image(40, 25, 200, 60)
+        this.button.src = '../images/button.png'
+        this.ctx.drawImage(this.button, 40, 25, 200, 60)
+
+        /* this.image = new Reward(65, 38);
+        this.image.src ='../images/platform.png'; */
+
         this.ctx.font = '22px monospace';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Score: ${this.points}`, 100, 50);
+        this.ctx.fillText(`Store: ${this.points}`, 80, 60);
     }
 
 
@@ -34,7 +41,7 @@ class Game {
 
         this.platforms = []
         for (let i = 0; i < 27; i++) {
-            this.platforms.push(new Platform((width + gap) * i, 400, width))
+            this.platforms.push(new Platform((width + gap) * i, 450, width))
         }
 
 
