@@ -2,14 +2,15 @@ class Reward {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 30;
-        this.height = 30;
+        this.width = 150;
+        this.height = 100;
     
     }
 
     draw() {
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        this.image = new Image();
+        this.image.src ='../images/coin.png';
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
     }   
 
     left(){

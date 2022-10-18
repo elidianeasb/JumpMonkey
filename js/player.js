@@ -27,7 +27,11 @@ class Player {
         if (this.velocity.y <= canvas.height) {
             this.velocity.y += gravity
         } 
-    }  
+    }
+    
+    setNewPosition(newPosition){
+        this.x = newPosition; 
+    }
     
     left(){
         return this.x;
