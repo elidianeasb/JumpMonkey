@@ -37,10 +37,7 @@ class Game {
             this.platforms.push(new Platform((width + gap) * i, 400, width))
         }
 
-        this.water = []
-        for (let i = 0; i < 27; i++) {
-            this.water.push(new Water((width + gap) * i, 460, width))
-        }
+
 
         this.background = []
         for (let i = 0; i < 27; i++) {
@@ -73,10 +70,6 @@ class Game {
             platform.draw()
         });
 
-        //Adds water 
-        this.water.forEach((water) => {
-            water.draw()
-        });
 
         //Add player
         this.player.newPosition();
@@ -148,9 +141,11 @@ class Game {
 
         this.ctx.font = '80px monospace';
         this.ctx.fillStyle = 'red';
-        this.ctx.fillText(`GameOver`, 200, 200);
+        this.ctx.fillText(`Game Over`, 380, 250);
 
-        this.ctx.fillRect(450, 200, 100, 50)
+        this.ctx.fillRect(380, 300, 100, 50);
+        document.getElementById("canvas-screen").style.display = "none";
+        document.getElementById("end-screen").style.display = "block";
     }
 
     update = () => {
@@ -177,4 +172,6 @@ class Game {
             this.points++;
         }
     }
+
+    
 }

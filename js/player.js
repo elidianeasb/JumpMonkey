@@ -10,7 +10,6 @@ class Player {
         this.width = 50;
         this.height = 100;
         this.speed = 5;
-        this.frames = 0;
     }
     
     draw() {
@@ -19,8 +18,6 @@ class Player {
     }
     
     newPosition() {
-        if (this.frames > 28) this.frames = 0;
-        this.frames++
         this.draw()
         this.x += this.velocity.x
         this.y += this.velocity.y

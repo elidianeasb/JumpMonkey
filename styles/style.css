@@ -5,3 +5,42 @@ body {
     justify-content: center;
     height: 1024px;
 }
+
+#intro-screen,
+#canvas-screen,
+#end-screen {
+    position: absolute;
+    width: 1024px;
+    height: 576px;
+}
+
+#intro-screen,
+#end-screen {
+    background-image: url('../images/BG.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#intro-screen p,
+#end-screen p {
+    color: white;
+}
+
+#end-screen,
+#canvas-screen {
+    display: none;
+}
+
+#intro-screen,
+#end-screen {
+    z-index: 1;
+}
+
+#intro-screen button,
+#end-screen button{
+    background-color: rgb(155, 30, 30);
+    color: white;
+    padding: 20px;
+}

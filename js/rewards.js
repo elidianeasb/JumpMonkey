@@ -2,16 +2,36 @@ class Reward {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 150;
-        this.height = 100;
+        this.width = 50;
+        this.height = 50
+        this.frames = 0;
+        this.update()
     
     }
 
     draw() {
         this.image = new Image();
         this.image.src ='../images/coin.png';
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
-    }   
+        ctx.drawImage(
+            this.image,
+            84 * this.frames,
+            0,
+            84,
+            84, 
+            this.x, 
+            this.y, 
+            this.width, 
+            this.height
+        )
+    }
+    
+    update(){
+        this.frames ++
+        if (this.frames > 5){
+            this.frames = 0;
+        }
+        this.draw();
+    }
 
     left(){
         return this.x;

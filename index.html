@@ -8,7 +8,17 @@
   <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <canvas width = "1024" height="576" ></canvas>
+  <div id="intro-screen">
+    <p>Intro</p>
+    <button id="start-button">Start</button>
+  </div>
+  <div id="canvas-screen">
+    <canvas width = "1024" height="576" ></canvas>
+  </div>
+  <div id="end-screen">
+    <p>End</p>
+    <button id="restart-button">Restart</button>
+  </div>
   <script type="text/javascript" src="./js/background.js" ></script>
   <script type="text/javascript" src="./js/platform.js" ></script>
   <script type="text/javascript" src="./js/rewards.js" ></script>
