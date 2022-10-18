@@ -9,25 +9,22 @@ const keys = {
     left: {
         pressed: false
     }
-} 
+}
+
+document.addEventListener('keyup', (e) => {
+    switch (e.code) {
+        case 'ArrowLeft':
+            keys.left.pressed = false;
+            break;
+
+        case 'ArrowRight':
+            keys.right.pressed = false;
+            break;
+    }
+})
+
 window.onload = () => {
-    document.getElementById("start-button").onclick = () => {
-      startGame();
-      document.getElementById("intro-screen").style.display = "none";
-      document.getElementById("canvas-screen").style.display = "block";
-    };
-    document.getElementById("restart-button").onclick = () => {
-      startGame();
-      document.getElementById("end-screen").style.display = "none";
-      document.getElementById("canvas-screen").style.display = "block";
-    };
-
-};
-function startGame() {
     const game = new Game();
-    game.start();
-
-    const player = new Player()
 
     addEventListener('keydown', (e) => {
         switch (e.code) {
@@ -40,22 +37,17 @@ function startGame() {
                 break;
 
             case 'ArrowUp':
-                game.decreaseVelocity(15)
+                game.decreasePlayerVelocity(15)
                 break;
         }
     })
 
-    document.addEventListener('keyup', (e) => {
-        switch (e.code) {
-            case 'ArrowLeft':
-                keys.left.pressed = false;
-                break;
-
-            case 'ArrowRight':
-                keys.right.pressed = false;
-                break;
-        }
-    })
-}
-
-startGame();
+    document.getElementById("start-button").onclick = () => {
+        game.start();
+        document.getElementById("intro-screen").style.display = "none";
+    };
+    document.getElementById("restart-button").onclick = () => {
+        game.restart();
+        document.getElementById("end-screen").style.display = "none";
+    };
+};

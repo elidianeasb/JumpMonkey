@@ -25,6 +25,10 @@ class Player {
             this.velocity.y += gravity
         } 
     }
+
+    decreaseVelocity(velocity) {
+        this.velocity.y -= velocity;
+    }
     
     setNewPosition(newPosition){
         this.x = newPosition; 

@@ -29,8 +29,7 @@ body {
     color: white;
 }
 
-#end-screen,
-#canvas-screen {
+#end-screen {
     display: none;
 }
 

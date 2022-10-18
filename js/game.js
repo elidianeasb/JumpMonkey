@@ -3,15 +3,20 @@ class Game {
         this.ctx = ctx;
         this.canvas = canvas;
         this.keys = keys;
-        this.init()
         this.scrollOffset = 0;
-        this.controls = null;
-        this.gameover = false;
-        this.life = 3;
+
+        this.init();
     }
 
     start() {
-        this.update()
+        this.update();
+    }
+
+    restart() {
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this.gameover = false;
+
+        this.init();
     }
 
     score() {
@@ -19,24 +24,24 @@ class Game {
         this.button.src = '../images/button.png'
         this.ctx.drawImage(this.button, 40, 25, 200, 60)
 
-        this.ctx.font = '28px monospace'; 
+        this.ctx.font = '28px monospace';
         this.ctx.fillStyle = 'white';
         this.ctx.fillText(`Store: ${this.points}`, 70, 65);
     }
 
-
-    decreaseVelocity(velocity) {
-        this.player.velocity.y -= velocity;
+    decreasePlayerVelocity(velocity) {
+        this.player.decreaseVelocity(velocity)
     }
 
     init = () => {
+        this.life = 3;
+
         this.player = new Player();
-        const gap = 1000;
-
+        
         this.points = 0;
-
-
+        
         //biggest platforms
+        const gap = 1000;
         this.platforms = []
         for (let i = 0; i < 27; i++) {
             this.platforms.push(new Platform((1024 + gap) * i, 450, 1024, '../images/platform01.png'))
@@ -44,17 +49,15 @@ class Game {
 
         //smallest platforms
         this.smallPlatforms = [new Platform(500, 350, 512, '../images/platform02.png')]
-                  
-
 
         //bachgraoung image
         this.background = []
         for (let i = 0; i < 27; i++) {
-                this.background.push(new Background((994) * i, 0, '../images/BG.png'))
-            }
-            /* new Background(0, 0, '../images/BG.png'),
-            //new GenericObject(0, 20, '../images/hills.png') */
-    
+            this.background.push(new Background((994) * i, 0, '../images/BG.png'))
+        }
+        /* new Background(0, 0, '../images/BG.png'),
+        //new GenericObject(0, 20, '../images/hills.png') */
+
 
         //Adds Rewards
         this.rewards = []
@@ -83,9 +86,6 @@ class Game {
         this.platforms.forEach((platform) => {
             platform.draw()
         });
-
-        
-
 
         //Add player
         this.player.newPosition();
@@ -118,12 +118,12 @@ class Game {
                 this.smallPlatforms.forEach((platform) => {
                     platform.x -= this.player.speed
                 })
-                
+
 
                 this.background.forEach((objects) => {
                     objects.x -= this.player.speed * 0.66
                 })
-                
+
                 this.rewards.forEach((reward) => {
                     reward.x -= this.player.speed
                 })
@@ -168,25 +168,10 @@ class Game {
         this.checkColision();
     }
 
-    drawGameOver = () => {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        this.ctx.font = '80px monospace';
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillText(`Game Over`, 380, 250);
-
-        this.ctx.fillRect(380, 300, 100, 50);
-
-        //TELA DE END GAME
-        document.getElementById("canvas-screen").style.display = "none";
-        document.getElementById("end-screen").style.display = "block";
-    }
-
     update = () => {
         requestAnimationFrame(this.update)
-        console.log(this.gameover)
         if (this.gameover) {
-            this.drawGameOver();
+            document.getElementById("end-screen").style.display = "block";
         } else {
             this.gameAnimation();
         }
@@ -207,5 +192,5 @@ class Game {
         }
     }
 
-    
+
 }
