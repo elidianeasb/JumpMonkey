@@ -1,10 +1,10 @@
 class Game {
-    constructor() {
+    constructor(ctx, canvas, keys) {
         this.ctx = ctx;
         this.canvas = canvas;
         this.keys = keys;
         this.scrollOffset = 0;
-
+        this.bestScore = 0;
         this.init();
     }
 
@@ -34,9 +34,12 @@ class Game {
     }
 
     random = (min, max) => {
-        return Math.floor(Math.random() * (max - min + 1) + min)
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
+    finalScore() {
+        return this.points;
+    }
 
     init = () => {
         this.life = 3;
@@ -202,19 +205,24 @@ class Game {
             this.gameover = true;
         }
 
-        this.checkColision();
+        this.rewardColision();
     }
 
     update = () => {
         requestAnimationFrame(this.update)
         if (this.gameover) {
             document.getElementById("end-screen").style.display = "flex";
+            document.getElementById("final-score").innerHTML = this.points;
+            if (this.points > this.bestScore){
+                this.bestScore = this.points
+                document.getElementById("best-score").innerHTML = this.bestScore;
+            }
         } else {
             this.gameAnimation();
         }
     }
 
-    checkColision = () => {
+    rewardColision = () => {
         let rewardColided;
         const crashed = this.rewards.some((reward) => {  //some methods 
             rewardColided = reward;

@@ -24,7 +24,7 @@ document.addEventListener('keyup', (e) => {
 })
 
 window.onload = () => {
-    const game = new Game();
+    const game = new Game(ctx, canvas, keys);
 
     addEventListener('keydown', (e) => {
         switch (e.code) {
