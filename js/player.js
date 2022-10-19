@@ -7,29 +7,62 @@ class Player {
             x: 0,
             y: 0
         }
-        this.width = 50;
-        this.height = 100;
+        this.width = 90;
+        this.height = 120;
         this.speed = 10;
+        this.frames = 0;
     }
     
-    draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+    drawUp() {
+        this.image = new Image();
+        this.image.src ='../images/monkeyUp.png';
+        ctx.drawImage(
+            this.image, 
+            this.x, 
+            this.y, 
+            this.width, 
+            this.height
+        )
+    }
+
+
+    drawMove() {
+        this.image = new Image();
+        this.image.src ='../images/monkeyMove.png';
+        ctx.drawImage(
+            this.image, 
+            this.x, 
+            this.y, 
+            this.width, 
+            this.height
+        )
     }
     
     newPosition() {
-        this.draw()
         this.x += this.velocity.x
         this.y += this.velocity.y
-
+        
         if (this.y < 0){
             this.velocity.y = 0;
             this.y = 1
-    
+            
         }else if (this.velocity.y <= canvas.height){
             this.velocity.y += gravity
         }       
-    
+        
+        this.drawUp()
+    }
+
+
+
+
+    update(){
+        this.frames++
+        if(this.frames > 16){
+            this.frames++
+        } 
+        
+        this.drawMove();
     }
 
     decreaseVelocity(velocity) {
