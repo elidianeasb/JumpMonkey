@@ -36,12 +36,18 @@ window.onload = () => {
                 keys.right.pressed = true;
                 break;
 
-            case 'ArrowUp':
-                game.decreasePlayerVelocity(15)
-                break;
+            case 'ArrowUp':              
+                game.decreasePlayerVelocity(15) 
+
+                //JUMP CONDICIONAL
+                /* if () {
+                }else{
+                       
+                }
+                break; */
         }
     })
-
+    game.start() //REMOVER
     document.getElementById("start-button").onclick = () => {
         game.start();
         document.getElementById("intro-screen").style.display = "none";

@@ -33,6 +33,10 @@ class Game {
         this.player.decreaseVelocity(velocity)
     }
 
+    random = (min, max) => {
+       return Math.floor(Math.random() * (max - min +1) + min)
+    }
+    
     init = () => {
         this.life = 3;
 
@@ -41,29 +45,51 @@ class Game {
         this.points = 0;
         
         //biggest platforms
-        const gap = 1000;
+        const gap = 300;
+
+        this.smallPlatforms = []
+
         this.platforms = []
+        
         for (let i = 0; i < 27; i++) {
-            this.platforms.push(new Platform((1024 + gap) * i, 450, 1024, '../images/platform01.png'))
+            const platformX = (1024 + gap) * i;
+
+            const max = platformX + 512;
+
+            const x = this.random(platformX, max);
+
+            this.platforms.push(new Platform(platformX, 450, 1024, '../images/platform01.png'))
+            if(i % 2 === 0){
+
+                this.smallPlatforms.push(new Platform(x, 350, 512, '../images/platform02.png'))
+            }
+    
         }
 
-        //smallest platforms
-        this.smallPlatforms = [new Platform(500, 350, 512, '../images/platform02.png')]
 
         //bachgraoung image
         this.background = []
         for (let i = 0; i < 27; i++) {
-            this.background.push(new Background((994) * i, 0, '../images/BG.png'))
+            this.background.push(new Background((994) * i, 0, '../images/BG.png'))            
         }
-        /* new Background(0, 0, '../images/BG.png'),
-        //new GenericObject(0, 20, '../images/hills.png') */
 
 
         //Adds Rewards
         this.rewards = []
+        
+
+        const minX = 200;
+        const maxX = 15000;
+        const minY = 100;
+        const maxY = 300;
+
+        
         for (let i = 1; i < 20; i++) {
-            const element = i[i];
-            this.rewards.push(new Reward((600 + i) * i + 3, 100));
+
+            const randomX = this.random(minX, maxX);
+            const randomY = this.random(minY, maxY);
+
+            this.rewards.push(new Reward(randomX, randomY));
         }
     }
 
@@ -75,6 +101,7 @@ class Game {
         this.background.forEach((background) => {
             background.draw()
         });
+        
 
         //draw small platforms 
         this.smallPlatforms.forEach((platform) => {
@@ -92,13 +119,13 @@ class Game {
 
         //Add rewards        
         this.rewards.forEach((reward) => {
-            reward.draw()
-        })
+            reward.update(); //The frames are here!!!!!
+        })        
 
         //Add score
         this.score();
 
-        //ADD LIFE 
+       
 
         //Scroll the background scenario
         if (this.keys.right.pressed && this.player.x < 400) {
@@ -171,7 +198,8 @@ class Game {
     update = () => {
         requestAnimationFrame(this.update)
         if (this.gameover) {
-            document.getElementById("end-screen").style.display = "block";
+            this.restart() //REMOVE!!!
+            //document.getElementById("end-screen").style.display = "block";
         } else {
             this.gameAnimation();
         }
@@ -191,6 +219,4 @@ class Game {
             this.points++;
         }
     }
-
-
 }

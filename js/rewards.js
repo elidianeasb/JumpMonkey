@@ -5,7 +5,7 @@ class Reward {
         this.width = 50;
         this.height = 50
         this.frames = 0;
-        this.update()
+        this.coinPhase = 0;
     
     }
 
@@ -14,7 +14,7 @@ class Reward {
         this.image.src ='../images/coin.png';
         ctx.drawImage(
             this.image,
-            84 * this.frames,
+            84 * this.coinPhase,
             0,
             84,
             84, 
@@ -27,10 +27,14 @@ class Reward {
     
     update(){
         this.frames++
-        if (this.frames > 5){
-            this.frames = 0;
+        if(this.frames % 15 === 0){
+            this.coinPhase++
+        } 
+        if(this.coinPhase > 5){
+            this.coinPhase = 0;
         }
         this.draw();
+     
     }
 
     left(){
