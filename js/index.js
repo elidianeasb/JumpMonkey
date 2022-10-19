@@ -37,17 +37,12 @@ window.onload = () => {
                 break;
 
             case 'ArrowUp':              
-                game.decreasePlayerVelocity(15) 
-
-                //JUMP CONDICIONAL
-                /* if () {
-                }else{
-                       
-                }
-                break; */
+                game.decreasePlayerVelocity(15);
+                break;                
         }
     })
-    game.start() //REMOVER
+    //game.start() //REMOVER
+    
     document.getElementById("start-button").onclick = () => {
         game.start();
         document.getElementById("intro-screen").style.display = "none";

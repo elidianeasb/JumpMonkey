@@ -1,4 +1,4 @@
-const gravity = 0.5
+const gravity = 0.7
 class Player {
     constructor() {
         this.x = 100;
@@ -9,7 +9,7 @@ class Player {
         }
         this.width = 50;
         this.height = 100;
-        this.speed = 5;
+        this.speed = 10;
     }
     
     draw() {
@@ -22,10 +22,6 @@ class Player {
         this.x += this.velocity.x
         this.y += this.velocity.y
 
-        /* if (this.velocity.y <= canvas.height){
-            this.velocity.y += gravity     
-        } */
-
         if (this.y < 0){
             this.velocity.y = 0;
             this.y = 1
@@ -36,15 +32,9 @@ class Player {
     
     }
 
-
     decreaseVelocity(velocity) {
         this.velocity.y -= velocity
     } 
-    
-    
-    /* setNewPosition(newPosition){
-        this.x = newPosition; 
-    } */
     
     left(){
         return this.x;

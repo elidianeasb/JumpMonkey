@@ -2,8 +2,8 @@ class Reward {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 50
+        this.width = 40;
+        this.height = 40
         this.frames = 0;
         this.coinPhase = 0;
     
@@ -27,14 +27,13 @@ class Reward {
     
     update(){
         this.frames++
-        if(this.frames % 15 === 0){
+        if(this.frames % 5 === 0){
             this.coinPhase++
         } 
         if(this.coinPhase > 5){
             this.coinPhase = 0;
         }
         this.draw();
-     
     }
 
     left(){
