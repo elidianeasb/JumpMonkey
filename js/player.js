@@ -58,7 +58,7 @@ class Player {
         this.stillMoving = true;
     } 
 
-    // ANIMATION WITHOUT VELOCITY TO FOLLOW THE SCNARIO SCROLLING
+    // ANIMATION WITHOUT VELOCITY TO FOLLOW THE SCENARIO SCROLLING
     startStaticMoving() {
         this.velocity.x = 0
         this.stillMoving = true
@@ -66,7 +66,7 @@ class Player {
 
     draw() {
         this.frames++;
-        if(this.frames % 10 === 0){
+        if(this.frames % 9 === 0){
             this.playerPhase++
         } 
         if(this.playerPhase > 15){

@@ -6,10 +6,11 @@ class Game {
         this.scrollOffset = 0;
         this.bestScore = 0;
         this.init();
+        this.intervalId = null;
     }
 
     start() {
-        this.update();
+        setInterval(this.update, 1000 /150)
     }
 
     restart() {
@@ -22,11 +23,14 @@ class Game {
     score() {
         this.button = new Image(25, 25, 150, 60)
         this.button.src = './images/button.png'
-        this.ctx.drawImage(this.button, 40, 25, 200, 60)
+        this.ctx.drawImage(this.button, 450, 25, 130, 60)
 
-        this.ctx.font = '28px monospace';
+        this.ctx.font = '20px times new roman';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Score: ${this.points}`, 70, 65);
+        this.ctx.shadowColor = 'black'
+        this.ctx.shadowBlur = 8;
+        this.ctx.fillText(`Score: ${this.points}`, 475, 60);
+        this.ctx.shadowBlur = 0; // reset shadow for the rest of the element
     }
 
     decreasePlayerVelocity(velocity) {
@@ -40,6 +44,13 @@ class Game {
     finalScore() {
         return this.points;
     }
+
+    finalReward() {
+        this.finalReward = new Image()
+        this.finalReward.src = './images/gold-treasure.png'
+        this.ctx.drawImage(this.finalReward, 300, 180, 150, 150)   
+    }
+
 
     init = () => {
         this.life = 3;
@@ -78,9 +89,10 @@ class Game {
 
         //background image
         this.background = []
-        for (let i = 0; i < 27; i++) {
+        for (let i = 0; i < 8; i++) {
             this.background.push(new Background((1399) * i, 0, './images/BG03.jpg'))
         }
+        
 
         //Add objects
         /* const trees01Coords = PHASE_ONE.trees01;
@@ -94,14 +106,13 @@ class Game {
         this.rewards = []
 
 
-        const rewardsMinX = 100;
-        const rewardsMaxX = 12000;
+        const rewardsMinX = 150;
+        const rewardsMaxX = 15000;
         const rewardsMinY = 120;
         const rewardsMaxY = 300;
 
 
-        // FAZ UM RANDOM DESSE NuMERO DE REWARDS PRA TER UM NUMERO ALEATORIO DE MOEDAS NA FASE
-        for (let i = 1; i < 27; i++) {
+        for (let i = 1; i < 50; i++) {
 
             const randomX = this.random(rewardsMinX, rewardsMaxX);
             const randomY = this.random(rewardsMinY, rewardsMaxY);
@@ -155,9 +166,9 @@ class Game {
 
 
         //Scroll the background scenario
-        if (this.keys.right.pressed && this.player.x < 200) {
+        if (this.keys.right.pressed && this.player.x < 150) {
             this.player.startMoving()
-        } else if (this.keys.left.pressed && this.player.x > 50 || this.keys.left.pressed && this.scrollOffset === 0 &&
+        } else if (this.keys.left.pressed && this.player.x > 100 || this.keys.left.pressed && this.scrollOffset === 0 &&
             this.player.x > 0) {
                 this.player.stopMoving()
         } else {            
@@ -189,6 +200,7 @@ class Game {
                 /* this.trees01.forEach((trees) => {
                     trees.x -= this.player.speed
                 }) */
+                
             } else {
                 // PREVENT FROM KEEP MOVING AFTER RELEASE RIGHT KEY
                 this.player.stopMoving()
@@ -229,8 +241,8 @@ class Game {
         this.rewardColision();
     }
 
-    update = () => {
-        requestAnimationFrame(this.update)
+    
+    update = () => {   
         if (this.gameover) {
             document.getElementById("end-screen").style.display = "flex";
             document.getElementById("final-score").innerHTML = this.points;
