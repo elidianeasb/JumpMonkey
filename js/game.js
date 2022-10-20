@@ -20,13 +20,13 @@ class Game {
     }
 
     score() {
-        this.button = new Image(40, 25, 200, 60)
+        this.button = new Image(25, 25, 150, 60)
         this.button.src = '../images/button.png'
         this.ctx.drawImage(this.button, 40, 25, 200, 60)
 
         this.ctx.font = '28px monospace';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Store: ${this.points}`, 70, 65);
+        this.ctx.fillText(`Score: ${this.points}`, 70, 65);
     }
 
     decreasePlayerVelocity(velocity) {
@@ -72,15 +72,22 @@ class Game {
         const smallPlatformsCoords = PHASE_ONE.smallPlatforms;
         smallPlatformsCoords.forEach(smallPlatform => {
             this.smallPlatforms.push(new Platform(smallPlatform.x, smallPlatform.y, 512, '../images/platform02.png'))
-        })
+        }) 
 
 
 
         //background image
         this.background = []
         for (let i = 0; i < 27; i++) {
-            this.background.push(new Background((994) * i, 0, '../images/BG.png'))
+            this.background.push(new Background((1399) * i, 0, '../images/BG03.jpg'))
         }
+
+        //Add objects
+        /* const trees01Coords = PHASE_ONE.trees01;
+        trees01Coords.forEach(tree => {
+            this.trees01.push(new Object(tree.x, tree.y, 100, '../images/Tree_1.png'))
+        })  */
+
 
 
         //Adds Rewards
@@ -93,6 +100,7 @@ class Game {
         const rewardsMaxY = 300;
 
 
+        // FAZ UM RANDOM DESSE NuMERO DE REWARDS PRA TER UM NUMERO ALEATORIO DE MOEDAS NA FASE
         for (let i = 1; i < 27; i++) {
 
             const randomX = this.random(rewardsMinX, rewardsMaxX);
@@ -136,6 +144,11 @@ class Game {
             reward.update();
         })
 
+          //Add objects        
+        /* this.trees01.forEach((tree) => {
+            tree.draw()
+        }); */
+
         //Add score
         this.score();
 
@@ -143,13 +156,13 @@ class Game {
 
         //Scroll the background scenario
         if (this.keys.right.pressed && this.player.x < 400) {
-            this.player.velocity.x = this.player.speed;
+            this.player.startMoving()
         } else if (this.keys.left.pressed && this.player.x > 100 || this.keys.left.pressed && this.scrollOffset === 0 &&
             this.player.x > 0) {
-            this.player.velocity.x = -this.player.speed;
-        } else {
-            this.player.velocity.x = 0;
+                this.player.stopMoving()
+        } else {            
             if (this.keys.right.pressed) {
+                this.player.startStaticMoving()
                 this.scrollOffset += this.player.speed
 
                 this.platforms.forEach((platform) => {
@@ -172,6 +185,13 @@ class Game {
                 this.rewards.forEach((reward) => {
                     reward.x -= this.player.speed
                 })
+
+                /* this.trees01.forEach((trees) => {
+                    trees.x -= this.player.speed
+                }) */
+            } else {
+                // PREVENT FROM KEEP MOVING AFTER RELEASE RIGHT KEY
+                this.player.stopMoving()
             }
         }
 
