@@ -20,7 +20,7 @@ class Player {
     
     drawUp() {
         this.image = new Image();
-        this.image.src ='../images/monkeyUp.png';
+        this.image.src ='./images/monkeyUp.png';
         ctx.drawImage(
             this.image, 
             this.x, 
@@ -32,7 +32,7 @@ class Player {
 
     drawMove() {  
         this.image = new Image();
-        this.image.src ='../images/monkeyMove.png';      
+        this.image.src ='./images/monkeyMove.png';      
         ctx.drawImage(            
             this.image,
             98 * this.playerPhase,

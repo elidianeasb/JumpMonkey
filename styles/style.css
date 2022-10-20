@@ -1,6 +1,6 @@
 body {
     background-color: rgb(36, 17, 2);
-    /* background-image: url('../images/background.jpg'); */
+    /* background-image: url('./images/background.jpg'); */
     display: flex;
     align-items: center;
     justify-content: center;

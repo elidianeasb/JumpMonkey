@@ -11,7 +11,7 @@ class Reward {
 
     draw() {
         this.image = new Image();
-        this.image.src ='../images/coin.png';
+        this.image.src ='./images/coin.png';
         ctx.drawImage(
             this.image,
             84 * this.coinPhase,

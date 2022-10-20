@@ -21,7 +21,7 @@ class Game {
 
     score() {
         this.button = new Image(25, 25, 150, 60)
-        this.button.src = '../images/button.png'
+        this.button.src = './images/button.png'
         this.ctx.drawImage(this.button, 40, 25, 200, 60)
 
         this.ctx.font = '28px monospace';
@@ -59,19 +59,19 @@ class Game {
 
         const platformCoords = PHASE_ONE.platforms;
         platformCoords.forEach(platform => {
-            this.platforms.push(new Platform(platform.x, platform.y, 1024, '../images/platform01.png'))
+            this.platforms.push(new Platform(platform.x, platform.y, 1024, './images/platform01.png'))
         });
 
 
         const floatingPlatformsCoords = PHASE_ONE.floatingPlatforms;
         floatingPlatformsCoords.forEach(floatingPlatform => {
-            this.floatingPlatforms.push(new Platform(floatingPlatform.x, floatingPlatform.y, 250, '../images/platform04.png'))
+            this.floatingPlatforms.push(new Platform(floatingPlatform.x, floatingPlatform.y, 250, './images/platform04.png'))
         })
 
 
         const smallPlatformsCoords = PHASE_ONE.smallPlatforms;
         smallPlatformsCoords.forEach(smallPlatform => {
-            this.smallPlatforms.push(new Platform(smallPlatform.x, smallPlatform.y, 512, '../images/platform02.png'))
+            this.smallPlatforms.push(new Platform(smallPlatform.x, smallPlatform.y, 512, './images/platform02.png'))
         }) 
 
 
@@ -79,13 +79,13 @@ class Game {
         //background image
         this.background = []
         for (let i = 0; i < 27; i++) {
-            this.background.push(new Background((1399) * i, 0, '../images/BG03.jpg'))
+            this.background.push(new Background((1399) * i, 0, './images/BG03.jpg'))
         }
 
         //Add objects
         /* const trees01Coords = PHASE_ONE.trees01;
         trees01Coords.forEach(tree => {
-            this.trees01.push(new Object(tree.x, tree.y, 100, '../images/Tree_1.png'))
+            this.trees01.push(new Object(tree.x, tree.y, 100, './images/Tree_1.png'))
         })  */
 
 
