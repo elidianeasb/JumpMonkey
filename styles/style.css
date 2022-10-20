@@ -30,7 +30,7 @@ body {
 
 
 #end-screen {    
-    background-image: url('/images/final-painel.png');
+    background-image: url('../images/final-painel.png');
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y:20px;
