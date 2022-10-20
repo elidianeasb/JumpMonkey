@@ -1,7 +1,7 @@
 const gravity = 0.7
 class Player {
     constructor() {
-        this.speed = 8;
+        this.speed = 5;
         this.x = 100;
         this.y = 100;
         this.velocity = {

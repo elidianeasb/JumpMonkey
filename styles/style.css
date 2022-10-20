@@ -1,6 +1,7 @@
+
 body {
-    background-color: rgb(36, 17, 2);
-    /* background-image: url('./images/background.jpg'); */
+    background-color: rgb(0, 0, 0);
+    /* background-image: url('./images/background.jpg'); */    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,6 +10,7 @@ body {
     height: 100vh;
     transform-origin:center ;
     transform: scale(100%);
+
 }
 
 #intro-screen,
@@ -28,11 +30,6 @@ body {
     align-items: center;
 }
 
-#intro-screen p,
-#end-screen p {
-    font-size: 30px;
-    color: white;
-}
 
 #end-screen {
     display: none;
@@ -48,12 +45,14 @@ body {
 
 #intro-screen button,
 #end-screen button{
-    background-color: rgb(4, 84, 75);
     color: white;
     border: none;
-    padding: 20px 60px;
+    padding: none;    
 }
 
 #start-button{
-    font-size: 30px;
+    width: 150px;
+    height: 75px;
+    box-shadow: 20px 10px 10px #0000009c;
+    cursor: pointer;
 }
