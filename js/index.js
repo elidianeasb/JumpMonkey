@@ -36,8 +36,12 @@ window.onload = () => {
                 keys.right.pressed = true;
                 break;
 
-            case 'ArrowUp':              
-                game.decreasePlayerVelocity(15);
+            case 'ArrowUp':    
+                if(!game.player.isJumping){
+                    game.player.isJumping = true;
+                    game.decreasePlayerVelocity(15);
+
+                }
                 break;                
         }
     })

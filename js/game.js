@@ -206,6 +206,7 @@ class Game {
                     this.player.x <= platform.x + platform.width
                 ) {
                     this.player.velocity.y = 0
+                    this.player.isJumping = false;
                 }
             })
         }

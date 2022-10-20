@@ -15,6 +15,7 @@ class Player {
         // CONTROL THE PLAYER ANIMATION
         this.playerPhase = 0;
         this.stillMoving = false;
+        this.isJumping = false;
     }
     
     drawUp() {
