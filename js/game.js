@@ -155,9 +155,9 @@ class Game {
 
 
         //Scroll the background scenario
-        if (this.keys.right.pressed && this.player.x < 400) {
+        if (this.keys.right.pressed && this.player.x < 200) {
             this.player.startMoving()
-        } else if (this.keys.left.pressed && this.player.x > 100 || this.keys.left.pressed && this.scrollOffset === 0 &&
+        } else if (this.keys.left.pressed && this.player.x > 50 || this.keys.left.pressed && this.scrollOffset === 0 &&
             this.player.x > 0) {
                 this.player.stopMoving()
         } else {            

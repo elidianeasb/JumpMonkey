@@ -51,8 +51,12 @@ body {
 }
 
 #start-button{
-    width: 150px;
-    height: 75px;
-    box-shadow: 20px 10px 10px #0000009c;
+    width: 120px;
+    height: 60px; 
     cursor: pointer;
+}
+
+#logo{
+    width: 300px;
+    height: 200px; 
 }

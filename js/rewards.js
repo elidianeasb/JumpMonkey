@@ -27,7 +27,7 @@ class Reward {
     
     update(){
         this.frames++
-        if(this.frames % 5 === 0){
+        if(this.frames % 20 === 0){
             this.coinPhase++
         } 
         if(this.coinPhase > 5){

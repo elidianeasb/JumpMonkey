@@ -1,7 +1,7 @@
-const gravity = 0.7
+const gravity = 0.4
 class Player {
     constructor() {
-        this.speed = 5;
+        this.speed = 4;
         this.x = 100;
         this.y = 100;
         this.velocity = {
@@ -66,7 +66,7 @@ class Player {
 
     draw() {
         this.frames++;
-        if(this.frames % 2 === 0){
+        if(this.frames % 10 === 0){
             this.playerPhase++
         } 
         if(this.playerPhase > 15){
